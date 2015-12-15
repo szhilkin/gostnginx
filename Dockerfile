@@ -27,7 +27,7 @@ RUN wget http://zlib.net/zlib-${ZLIB_VERSION}.tar.gz &&\
     tar -xf zlib-${ZLIB_VERSION}.tar.gz &&\
     rm -f zlib-${ZLIB_VERSION}.tar.gz
 
-RUN wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${OPENSSL_VERSION}.tar.gz &&\
+RUN wget http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.tar.gz &&\
     tar -xf libressl-${OPENSSL_VERSION}.tar.gz &&\
     rm -f libressl-${OPENSSL_VERSION}.tar.gz
 
@@ -67,7 +67,7 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
     --without-mail_pop3_module \
     --without-mail_imap_module \
     --without-mail_smtp_module \
-    --with-openssl=/usr/src/libressl-${OPENSSL_VERSION} \
+    --with-openssl=/usr/src/libressl-${LIBRESSL_VERSION} \
 #    --with-openssl-opt="enable-ec_nistp_64_gcc_128 no-krb5 enable-tlsext" \
     --with-pcre=/usr/src/pcre-${PCRE_VERSION} \
     --with-pcre-jit \
