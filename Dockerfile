@@ -12,7 +12,7 @@ RUN echo udev hold | dpkg --set-selections && \
     apt-get update -q &&\
     apt-get -y upgrade
 
-RUN apt-get remove openssl
+RUN apt-get -y remove openssl
 RUN apt-get -y install wget git unzip build-essential ca-certificates
 
 ENV NGINX_VERSION 1.9.9
