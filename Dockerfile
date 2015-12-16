@@ -12,7 +12,8 @@ RUN echo udev hold | dpkg --set-selections && \
     apt-get update -q &&\
     apt-get -y upgrade
 
-RUN apt-get -y install wget git unzip build-essential locales
+RUN apt-get remove openssl
+RUN apt-get -y install wget git unzip build-essential ca-certificates
 
 ENV NGINX_VERSION 1.9.9
 ENV PCRE_VERSION 8.38
@@ -37,9 +38,7 @@ RUN wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz &&\
     tar -xf nginx-${NGINX_VERSION}.tar.gz &&\
     rm -f nginx-${NGINX_VERSION}.tar.gz
 
-# Modules
-
-# Configure nginx
+RUN cd /usr/src/libressl-${LIBRESSL_VERSION} && ./configure --prefix=/usr
 
 RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
     --prefix=/opt/nginx \
@@ -76,7 +75,7 @@ RUN cd /usr/src/nginx-${NGINX_VERSION} && ./configure \
    mkdir -p /var/lib/nginx &&\
    mkdir -p /www
 
-
+RUN cd /usr/src/libressl-${LIBRESSL_VERSION} && make && make install
 RUN cd /usr/src/nginx-${NGINX_VERSION} && make && make DESTDIR=/ install
 
 ADD nginx /etc/nginx
